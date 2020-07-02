@@ -1,12 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight, GestureResponderEvent} from 'react-native';
 
-const Button = (submitToDo : (event : GestureResponderEvent) => void)  => (
+export interface ButtonProp {
+    submitToDo :(event : GestureResponderEvent) => void
+}
+
+const Button = (p_input : ButtonProp)  => (
     <View style={styles.buttonContainer}>
         <TouchableHighlight 
         underlayColor='#efefef'
         style={styles.button}
-        onPress={submitToDo}>
+        onPress={p_input.submitToDo}>
 
         <Text style={styles.submit}>Submit</Text>
         </TouchableHighlight>
@@ -34,3 +38,5 @@ const styles = StyleSheet.create({
         fontWeight : '600'
     }
 });
+
+export default Button;

@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, GestureResponderEvent } from 'react-native';
 import Heading from './components/layout/header';
 import Input, {InputProp} from './components/UI/TextInput';
+import Button from './components/UI/Button';
 
 interface ToDoType {
   title : string,
@@ -33,9 +34,11 @@ export default class App extends Component {
   inputChange(inputValue : string) {
     this.stateHolder.inputValue =  inputValue;
     this.setState(this.stateHolder);
+
+    this.submitTodo = this.submitTodo.bind(this);
   }
 
-  submitTodo() {
+  submitTodo(event : GestureResponderEvent) {
     if (this.stateHolder.inputValue.match(/^\s*$/)) {
       return 
     }
@@ -64,6 +67,7 @@ export default class App extends Component {
         <ScrollView keyboardShouldPersistTaps='always' style={styles.content}>
           <Heading></Heading>
           <Input inputValue={inputText} inputChange={(text : string) => this.inputChange(text) }  /> 
+          <Button submitToDo={(event : GestureResponderEvent) => this.submitTodo(event)} />
         </ScrollView> 
       </View>
     )
